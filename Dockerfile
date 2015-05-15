@@ -50,3 +50,14 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # Add Go binaries to the path.
 ENV PATH $GOROOT/bin:$PATH
+
+# Add required ppa's.
+RUN \
+  add-apt-repository -y ppa:git-core/ppa && \
+  add-apt-repository -y ppa:nginx/stable && \
+  curl -sL https://deb.nodesource.com/setup | sudo bash -
+
+# Add mongodb repo.
+RUN \
+  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
+  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/mongodb.list

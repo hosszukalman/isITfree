@@ -106,3 +106,18 @@ RUN \
   go get github.com/tools/godep && \
   $GOPATH/bin/godep restore && \
   go build
+
+# Install Bower and Grunt.
+RUN \
+  npm install --global bower && \
+  npm install --global grunt-cli
+
+# Link front-end to the webroot.
+RUN rm -rf /var/www/html
+RUN ln -s $WORKDIR/front-end/src /var/www/html
+
+# Build front-end.
+RUN cd $WORKDIR/front-end && \
+  npm install && \
+  bower install && \
+  ./node_modules/.bin/gulp

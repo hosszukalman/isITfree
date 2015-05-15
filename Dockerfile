@@ -84,6 +84,15 @@ RUN \
 # Install a recent version of npm because of https://github.com/npm/npm/issues/6309
 RUN npm install -g npm@$NPM_VERISON
 
+# Add configuration files.
+ADD config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+ADD config/nginx/sites-available/default /etc/nginx/sites-available/default
+ADD config/nginx/nginx.conf /etc/nginx/nginx.conf
+ADD config/.bashrc /root/.bashrc
+ADD config/samba/smb.conf /etc/samba/smb.conf
+ADD config/timezone /etc/timezone
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+
 # Install compass.
 run \
   gem install --no-rdoc --no-ri compass

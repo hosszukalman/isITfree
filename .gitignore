@@ -1,2 +1,10 @@
 workdir/back-end/Godeps/_workspace/
 workdir/back-end/back-end
+
+workdir/font-end/.sass-cache
+workdir/font-end/.tmp
+workdir/font-end/dist
+workdir/font-end/bower_components
+workdir/font-end/node_modules
+workdir/font-end/src/assets/app.js
+workdir/font-end/src/css

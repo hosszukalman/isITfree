@@ -43,3 +43,10 @@ EXPOSE 27017
 # https://github.com/csswizardry/inuit.css/issues/270#issuecomment-56056606
 RUN locale-gen en_US.UTF-8
 ENV LC_ALL en_US.UTF-8
+
+# Add some directories to the PATH.
+RUN echo 'export PATH=$PATH:/usr/local/sbin/:/usr/sbin/:/sbin' >> /root/.bashrc
+ENV DEBIAN_FRONTEND noninteractive
+
+# Add Go binaries to the path.
+ENV PATH $GOROOT/bin:$PATH

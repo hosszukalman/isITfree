@@ -12,3 +12,13 @@ ENV MONGODB_VERSION 2.6.7
 ENV GO_VERSION 1.4.2
 ENV NGINX_VERSION 1.6.2-5+trusty0
 ENV NPM_VERISON 2.7.3
+
+ENV GOROOT /goroot
+ENV GOPATH /gopath
+
+ENV WORKDIR /workdir
+
+VOLUME /data
+
+# Executables to run.
+ENTRYPOINT ["/usr/bin/supervisord"]

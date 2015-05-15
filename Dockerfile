@@ -83,3 +83,26 @@ RUN \
 
 # Install a recent version of npm because of https://github.com/npm/npm/issues/6309
 RUN npm install -g npm@$NPM_VERISON
+
+# Install compass.
+run \
+  gem install --no-rdoc --no-ri compass
+
+# Install Go.
+RUN \
+  mkdir -p $GOROOT && \
+  curl -s https://storage.googleapis.com/golang/go$GO_VERSION.linux-amd64.tar.gz | tar xzf - -C $GOROOT --strip-components=1
+
+# Add go scripts.
+ADD ./workdir $WORKDIR
+RUN mkdir -p $GOPATH/src/github.com/hosszukalman/isITfree
+
+# Link the back-end to the GOPATH.
+RUN ln -s $WORKDIR/back-end $GOPATH/src/github.com/hosszukalman/isITfree/back-end
+
+# Build back-end
+RUN \
+  cd $GOPATH/src/github.com/hosszukalman/isITfree/back-end && \
+  go get github.com/tools/godep && \
+  $GOPATH/bin/godep restore && \
+  go build

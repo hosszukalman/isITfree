@@ -61,3 +61,25 @@ RUN \
 RUN \
   apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 && \
   echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/mongodb.list
+
+  # Upgrade and install packages.
+RUN \
+  apt-get update -y && \
+  apt-get upgrade -y && \
+  apt-get install -y \
+    bzr \
+    git \
+    make \
+    mongodb-org-mongos=$MONGODB_VERSION \
+    mongodb-org-server=$MONGODB_VERSION \
+    mongodb-org-shell=$MONGODB_VERSION \
+    mongodb-org-tools=$MONGODB_VERSION \
+    mongodb-org=$MONGODB_VERSION \
+    nginx \
+    nodejs \
+    ruby-dev \
+    supervisor &&\
+  apt-get clean -y
+
+# Install a recent version of npm because of https://github.com/npm/npm/issues/6309
+RUN npm install -g npm@$NPM_VERISON
